@@ -70,7 +70,7 @@ export const BentoGridItem = ({
             setGlobalPlayingState(false);
           }
         }
-        setLoading(true); // Start loader when starting to play
+        setLoading(true);
         await audioRef.current.play();
         setLoading(false); // Stop loader once playing
         currentlyPlayingAudio = audioRef.current;
@@ -86,8 +86,9 @@ export const BentoGridItem = ({
         setIsPlaying(false);
       };
 
-      audioRef.current.oncanplay = () => {
-        setLoading(false); // Stop loader once ready to play
+      // Use `canplaythrough` for better loading detection
+      audioRef.current.oncanplaythrough = () => {
+        setLoading(false); // Stop loader once ready to play through without buffering
       };
 
       const updateProgress = () => {
@@ -96,6 +97,13 @@ export const BentoGridItem = ({
           const duration = audioRef.current.duration;
           if (duration) setProgress((currentTime / duration) * 100);
         }
+      };
+
+      // Handle loading errors
+      audioRef.current.onerror = () => {
+        setLoading(false); // Stop loading if there's an error
+        setIsPlaying(false);
+        currentlyPlayingAudio = null;
       };
 
       // Update progress during playback
