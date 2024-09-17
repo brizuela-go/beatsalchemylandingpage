@@ -25,6 +25,8 @@ type Playlist = {
   songs: string[]; // Array of song IDs
 };
 
+export const revalidate = 60;
+
 export default async function Beats() {
   const songsCollectionRef = collection(db, "songs");
   const playlistCollectionRef = collection(db, "playlists");
