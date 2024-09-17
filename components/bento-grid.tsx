@@ -81,38 +81,35 @@ export const BentoGridItem = ({
   };
 
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.onended = () => {
-        setIsPlaying(false);
+    const audioElement = audioRef.current;
+
+    if (audioElement) {
+      // Set loading to true when starting to load the audio
+      audioElement.onwaiting = () => setLoading(true);
+
+      audioElement.oncanplaythrough = () => {
+        setLoading(false); // Stop loader once ready to play
       };
 
-      // Use `canplaythrough` for better loading detection
-      audioRef.current.oncanplaythrough = () => {
-        setLoading(false); // Stop loader once ready to play through without buffering
+      audioElement.onended = () => {
+        setIsPlaying(false);
+        setLoading(false); // Ensure loading is false when audio ends
       };
 
       const updateProgress = () => {
-        if (audioRef.current) {
-          const currentTime = audioRef.current.currentTime;
-          const duration = audioRef.current.duration;
-          if (duration) setProgress((currentTime / duration) * 100);
-        }
-      };
-
-      // Handle loading errors
-      audioRef.current.onerror = () => {
-        setLoading(false); // Stop loading if there's an error
-        setIsPlaying(false);
-        currentlyPlayingAudio = null;
+        const currentTime = audioElement.currentTime;
+        const duration = audioElement.duration;
+        if (duration) setProgress((currentTime / duration) * 100);
       };
 
       // Update progress during playback
-      audioRef.current.addEventListener("timeupdate", updateProgress);
+      audioElement.addEventListener("timeupdate", updateProgress);
 
       return () => {
-        if (audioRef.current) {
-          audioRef.current.removeEventListener("timeupdate", updateProgress);
-        }
+        audioElement.removeEventListener("timeupdate", updateProgress);
+        audioElement.onwaiting = null; // Clean up event listener
+        audioElement.oncanplaythrough = null; // Clean up event listener
+        audioElement.onended = null; // Clean up event listener
       };
     }
   }, []);
