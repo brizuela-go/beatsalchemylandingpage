@@ -6,6 +6,21 @@ import Footer from "../components/footer";
 export const metadata: Metadata = {
   title: "Beats Alchemy",
   description: "Discover the power of binaural beats",
+  openGraph: {
+    title: "Beats Alchemy",
+    description: "Discover the power of binaural beats",
+    type: "website",
+    locale: "en_US",
+    url: "https://beatsalchemy.vercel.app",
+    images: [
+      {
+        url: "https://beatsalchemy.vercel.app/og1.png",
+        width: 800,
+        height: 600,
+        alt: "Beats Alchemy",
+      },
+    ],
+  },
 };
 
 type Props = {

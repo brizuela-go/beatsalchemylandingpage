@@ -13,12 +13,10 @@ import ContactForm from "../components/contact-form";
 import Image from "next/image";
 import MainHero from "../components/hero-main";
 
-const Slide169: NextPage = () => {
+export default function Home() {
   return (
     <div className="overflow-hidden flex flex-col items-center justify-center  ">
       <MainHero />
     </div>
   );
-};
-
-export default Slide169;
+}
