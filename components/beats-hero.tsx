@@ -37,7 +37,7 @@ export default function BeatsHero() {
           initial={{ y: 80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.3 }}
-          className=" text-[20px] font-inter font-thin text-white my-4"
+          className=" text-[20px] font-inter font-extralight text-white my-4"
         >
           Name your price and get access to all of our beats bellow
         </motion.p>

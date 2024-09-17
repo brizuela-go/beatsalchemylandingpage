@@ -29,14 +29,14 @@ const links = [
     href: "/beats",
     text: "Beats",
   },
-  {
-    href: "/about",
-    text: "About",
-  },
-  {
-    href: "/contact",
-    text: "Contact",
-  },
+  // {
+  //   href: "/about",
+  //   text: "About",
+  // },
+  // {
+  //   href: "/contact",
+  //   text: "Contact",
+  // },
 ];
 
 const Navbar: NextPage<FrameComponent1Type> = ({ className = "" }) => {

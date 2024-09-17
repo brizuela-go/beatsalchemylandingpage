@@ -12,16 +12,17 @@ export default function MainHero() {
       transition={{ duration: 0.2 }}
       className="relative flex flex-col items-start w-full h-[1080px] bg-gradient-to-b from-transparent via-transparent to-white"
     >
-      <div className="absolute lg:mt-2 mt-0  flex justify-center items-start w-full h-full">
+      <div className="absolute lg:mt-2 mt-0 flex justify-center items-start w-full h-full">
         <Image
-          className="object-cover lg:rounded-b-[50px] rounded-none max-lg:w-full max-lg:h-full max-lg:object-left-bottom"
+          className="object-cover lg:rounded-b-[50px] rounded-none max-lg:w-full max-lg:h-full "
           width={1600}
           height={900}
           alt="woman meditating"
           src="/rectangle-2@2x.png"
-          style={{ objectPosition: "top" }} // Moves the image up
+          style={{ objectPosition: "10% 0%" }}
         />
       </div>
+
       <div className="relative z-10 text-start lg:left-36 top-1/4 left-4 w-[90%] lg:w-[50%]">
         <motion.h1
           initial={{ y: 80, opacity: 0 }}
@@ -38,7 +39,7 @@ export default function MainHero() {
           initial={{ y: 80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.3 }}
-          className="mt-4 text-[20px] font-inter font-thin text-[#28272B]"
+          className="mt-4 text-[20px] font-inter font-extralight text-[#28272B]"
         >
           Help Your Clients Achieve Peak States and Transform
           <br />

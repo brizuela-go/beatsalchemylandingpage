@@ -26,7 +26,7 @@ export default function Footer() {
             <span className="ml-2">info@beatsalchemy.com</span>
           </Link>
         </div>
-        <div className="flex lg:flex-row flex-col lg:justify-center lg:items-center items-start -ml-20 lg:-ml-0  mt-10 lg:gap-32 gap-16">
+        <div className="flex lg:flex-row flex-col lg:justify-center lg:items-center items-start -ml-40 lg:-ml-0  my-10 lg:gap-32 gap-16 ">
           <div className="flex items-start gap-5 flex-col">
             <h3 className="text-lg font-semibold">Find your way</h3>
             <Link className="text-gray-500" href="/">
@@ -42,7 +42,7 @@ export default function Footer() {
               Contact
             </Link>
           </div>
-          <div className="flex items-start gap-5 flex-col max-lg:mb-6">
+          {/* <div className="flex items-start gap-5 flex-col max-lg:mb-6">
             <h3 className="text-lg font-semibold">Find us on Social Media</h3>
             <Link
               className="text-gray-500"
@@ -72,7 +72,7 @@ export default function Footer() {
             >
               LinkedIn
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
       <p className="text-sm text-center text-gray-500 mt-4">

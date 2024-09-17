@@ -1,5 +1,4 @@
 import type { NextPage } from "next";
-import FrameComponent1 from "../components/navbar";
 import FrameComponent from "../components/frame-component";
 import FrameComponent2 from "../components/frame-component2";
 import FrameComponent3 from "../components/frame-component3";
@@ -12,11 +11,17 @@ import PracticeEnhancement from "../components/practice-enhancement";
 import ContactForm from "../components/contact-form";
 import Image from "next/image";
 import MainHero from "../components/hero-main";
+import AlignExperiences from "../components/main/align-experiences";
+import SectionTwo from "../components/main/section-two";
 
 export default function Home() {
   return (
-    <div className="overflow-hidden flex flex-col items-center justify-center  ">
+    <div className="overflow-hidden ">
       <MainHero />
+      <div className="relative isolate lg:mx-14">
+        <AlignExperiences />
+        <SectionTwo />
+      </div>
     </div>
   );
 }
