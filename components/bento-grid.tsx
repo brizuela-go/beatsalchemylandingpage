@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, Fragment, MouseEvent } from "react";
 import { cn } from "../lib/utils";
-import { PauseCircle, PlayCircle } from "lucide-react";
+import { PauseCircle, PlayCircle, Loader2 } from "lucide-react"; // Add Loader icon
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -33,9 +33,9 @@ export const BentoGridItem = ({
   className,
   title,
   description,
-  header, // The artist cover (image or ReactNode)
+  header,
   audio,
-  artist, // Artist name
+  artist,
   cover,
 }: {
   className?: string;
@@ -48,14 +48,16 @@ export const BentoGridItem = ({
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [loading, setLoading] = useState(false); // Add loading state
   const audioRef = useRef<HTMLAudioElement>(null);
   const [progress, setProgress] = useState(0);
 
   // Toggle play and pause
-  const togglePlayPause = () => {
+  const togglePlayPause = async () => {
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.pause();
+        setLoading(false); // Stop loader
         currentlyPlayingAudio = null;
         setGlobalPlayingState = null;
       } else {
@@ -65,12 +67,14 @@ export const BentoGridItem = ({
         ) {
           currentlyPlayingAudio.pause(); // Pause any currently playing audio
           if (setGlobalPlayingState) {
-            setGlobalPlayingState(false); // Reset the playing state for the other component
+            setGlobalPlayingState(false);
           }
         }
-        audioRef.current.play();
+        setLoading(true); // Start loader when starting to play
+        await audioRef.current.play();
+        setLoading(false); // Stop loader once playing
         currentlyPlayingAudio = audioRef.current;
-        setGlobalPlayingState = setIsPlaying; // Set the global playing state handler
+        setGlobalPlayingState = setIsPlaying;
       }
       setIsPlaying(!isPlaying);
     }
@@ -80,6 +84,10 @@ export const BentoGridItem = ({
     if (audioRef.current) {
       audioRef.current.onended = () => {
         setIsPlaying(false);
+      };
+
+      audioRef.current.oncanplay = () => {
+        setLoading(false); // Stop loader once ready to play
       };
 
       const updateProgress = () => {
@@ -132,7 +140,9 @@ export const BentoGridItem = ({
                 onClick={togglePlayPause}
                 className="p-2 text-white hover:text-gray-300 transition"
               >
-                {isPlaying ? (
+                {loading ? ( // Show loader if loading
+                  <Loader2 className="w-12 h-12 animate-spin" />
+                ) : isPlaying ? (
                   <PauseCircle className="w-12 h-12" />
                 ) : (
                   <PlayCircle className="w-12 h-12" />
@@ -143,7 +153,14 @@ export const BentoGridItem = ({
         </div>
 
         {/* Audio element */}
-        {audio && <audio ref={audioRef} src={audio} id={`audio-${audio}`} />}
+        {audio && (
+          <audio
+            ref={audioRef}
+            src={audio}
+            preload="metadata"
+            id={`audio-${audio}`}
+          />
+        )}
 
         {/* Title and description */}
         <div className="group-hover/bento:translate-x-2 transition duration-200">
@@ -185,7 +202,9 @@ export const BentoGridItem = ({
                   onClick={togglePlayPause}
                   className="p-2 text-blue-500 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-500 transition"
                 >
-                  {isPlaying ? (
+                  {loading ? ( // Show loader if loading
+                    <Loader2 className="w-8 h-8 animate-spin" />
+                  ) : isPlaying ? (
                     <PauseCircle className="w-8 h-8" />
                   ) : (
                     <PlayCircle className="w-8 h-8" />
